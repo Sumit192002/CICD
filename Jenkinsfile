@@ -4,32 +4,35 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/your-username/your-repo.git', branch: 'main'
+                git branch: 'main', url: 'https://github.com/Sumit192002/CICD.git', credentialsId: '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'
             }
         }
-        stage('Build Docker Image') {
+        stage('Deploy Nginx') {
             steps {
                 script {
-                    dockerImage = docker.build("my-nginx-image")
+                    docker.image('nginx:latest').run('-p 80:80 -d')
                 }
             }
         }
-        stage('Deploy to Docker') {
+        stage('Deploy Website') {
             steps {
                 script {
-                    dockerImage.run('-d -p 80:80 my-nginx-image')
+                    // Find the running Nginx container ID
+                    def containerId = sh(script: "docker ps -q --filter ancestor=nginx:latest", returnStdout: true).trim()
+                    
+                    // Copy index.html to the Nginx container
+                    sh "docker cp index.html ${containerId}:/usr/share/nginx/html/index.html"
                 }
-            }
-        }
-        stage('Display Website') {
-            steps {
-                sh 'echo "My Website" > /usr/share/nginx/html/index.html'
             }
         }
     }
+
     post {
-        always {
-            cleanWs()
+        success {
+            echo 'Deployment Successful'
+        }
+        failure {
+            echo 'Deployment Failed'
         }
     }
 }
