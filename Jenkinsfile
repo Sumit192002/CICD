@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    docker.image('my-nginx-image').run('-p 80:80 -d')
+                    docker.image('my-nginx-image').run('-p 80:80')
                 }
             }
         }
