@@ -7,21 +7,19 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Sumit192002/CICD.git', credentialsId: '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'
             }
         }
-        stage('Deploy Nginx') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    docker.image('nginx:latest').run('-p 80:80 -d')
+                    // Build the Docker image
+                    docker.build('my-nginx-image')
                 }
             }
         }
-        stage('Deploy Website') {
+        stage('Deploy to Docker') {
             steps {
                 script {
-                    // Find the running Nginx container ID
-                    def containerId = sh(script: "docker ps -q --filter ancestor=nginx:latest", returnStdout: true).trim()
-                    
-                    // Copy index.html to the Nginx container
-                    sh "docker cp index.html ${containerId}:/usr/share/nginx/html/index.html"
+                    // Run the Docker container
+                    docker.image('my-nginx-image').run('-p 80:80 -d')
                 }
             }
         }
