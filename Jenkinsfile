@@ -1,17 +1,21 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_BUILDKIT = '1'
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sumit192002/CICD.git', credentialsId: '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'
+                git branch: 'main', url: 'https://github.com/Sumit192002/CICD.git', credentialsId: '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'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image
-                    docker.build('my-nginx-image')
+                    // Build the Docker image using Buildx
+                    sh 'docker buildx build --tag my-nginx-image .'
                 }
             }
         }
