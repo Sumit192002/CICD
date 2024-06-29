@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sumit192002/CICD.git', credentialsId: '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'
+                git branch: 'main', url: 'https://github.com/Sumit192002/CICD.git', credentialsId: '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'
             }
         }
         stage('Build Docker Image') {
