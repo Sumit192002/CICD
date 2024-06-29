@@ -23,10 +23,10 @@ pipeline {
             steps {
                 script {
                     // Stop Apache to free up port 80
-                    sh 'sudo systemctl stop apache2'
+        
                     
                     // Run the Docker container on port 80
-                    sh 'docker run -d -p 80:80 my-nginx-image'
+                    sh 'docker run -d -p 8081:80 my-nginx-image'
                 }
             }
         }
@@ -41,3 +41,6 @@ pipeline {
         }
     }
 }
+
+
+
