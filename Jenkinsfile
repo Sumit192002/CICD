@@ -22,8 +22,11 @@ pipeline {
         stage('Deploy to Docker') {
             steps {
                 script {
-                    // Run the Docker container
-                    docker.image('my-nginx-image').run('-p 80:80')
+                    // Stop Apache to free up port 80
+                    sh 'sudo systemctl stop apache2'
+                    
+                    // Run the Docker container on port 80
+                    sh 'docker run -d -p 80:80 my-nginx-image'
                 }
             }
         }
