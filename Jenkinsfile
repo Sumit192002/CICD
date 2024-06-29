@@ -26,7 +26,7 @@ pipeline {
         
                     
                     // Run the Docker container on port 80
-                    sh 'docker run -d -p 8083:80 my-nginx-image'
+                    sh 'docker run -d -p 8084:80 my-nginx-image'
                 }
             }
         }
