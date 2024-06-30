@@ -26,13 +26,13 @@ body {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--black);
 }
 
 p {
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-weight: 400;
   color: var(--title)
 }
