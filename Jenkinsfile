@@ -27,7 +27,7 @@ pipeline {
                     sh 'docker rm $(docker ps -aq --filter "publish=8085") || true'
                     
                     // Run the Docker container on port 8085
-                    sh 'docker run -d -p 8085:80 my-nginx-image'
+                    sh 'docker run -d -p 8086:80 my-nginx-image'
                 }
             }
         }
